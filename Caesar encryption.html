@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>凱撒密碼</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+    <style>
+        table#respond {
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td#respond,th#respond {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 3px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        td:nth-child(even) {
+            text-align: center;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Caesar encryption</h1>
+
+    <form name="caesar_encryption">
+        請輸入想加/解密的文字：<br>
+        <input type="text" name="original_text">
+    </form>
+
+    <br>
+
+    <input type="button" value="start ROT" onClick="do_caesar()">
+
+    <br>
+    <br>
+
+    <table id=respond></table>
+
+    <script>
+
+        function do_caesar() {
+
+            var ROT = [];
+            var output_text = ["<tr><td>偏移量</td><td>Text</td></tr>"];
+            var key, j, word_text, cword;
+            var original_text = document.caesar_encryption.original_text.value;
+
+            for (key = 0; key < 26; key++) {
+
+                var answer = "";
+
+                for (now_word = 0; now_word < original_text.length; now_word++) {
+                    word_text = original_text.charCodeAt(now_word);
+
+                    if (word_text >= 65 && word_text <= 90) {
+                        cword = ((word_text - 65) + key) % 26 + 65;
+                    }
+                    if (word_text >= 97 && word_text <= 122) {
+                        cword = ((word_text - 97) + key) % 26 + 97;
+                    }
+                    answer += String.fromCharCode(cword);
+                }
+
+                ROT.push(answer);
+                answer = "";
+
+            }
+
+            ROT.forEach(function (index, element) {
+                output_text += "<tr>" + "<td>" + "ROT" + element + "</td>" + "<td>" + index + "</td>" + "</tr>";
+            })
+
+            document.getElementById("respond").innerHTML = output_text;
+        }
+
+    </script>
+
+</body>
+
+</html>
