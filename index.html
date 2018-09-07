@@ -72,6 +72,9 @@
                     if (word_text >= 97 && word_text <= 122) {
                         cword = ((word_text - 97) + key) % 26 + 97;
                     }
+                    if (word_text == 32) {
+                        cword = word_text;
+                    }
                     answer += String.fromCharCode(cword);
                 }
 
